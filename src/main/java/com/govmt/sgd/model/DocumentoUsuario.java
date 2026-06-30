@@ -1,4 +1,4 @@
-package com.govmt.gerenciamento_de_documentos.model;
+package com.govmt.sgd.model;
 
 @Entity
 @Table(name = "documento_usuarios")
