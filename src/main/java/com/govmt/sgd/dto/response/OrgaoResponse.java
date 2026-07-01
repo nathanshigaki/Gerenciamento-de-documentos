@@ -7,6 +7,6 @@ public record OrgaoResponse(
     UUID id,
     String nome,
     String acronimo,
-    LocalDateTime criado_em,
-    LocalDateTime atualizado_em
+    LocalDateTime criadoEm,
+    LocalDateTime atualizadoEm
 ) {}

@@ -37,10 +37,10 @@ public class Orgao {
 
     @CreationTimestamp
     @Column(name = "criado_em", updatable = false)
-    private LocalDateTime criado_em;
+    private LocalDateTime criadoEm;
 
     @UpdateTimestamp
     @Column(name = "atualizado_em")
-    private LocalDateTime atualizado_em;
+    private LocalDateTime atualizadoEm;
 
 }
