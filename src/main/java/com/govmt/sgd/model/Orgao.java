@@ -32,6 +32,7 @@ public class Orgao {
     @Column(nullable = false)
     private String nome;
     
+    @Column(name = "acronimo")
     private String acronimo;
 
     @CreationTimestamp

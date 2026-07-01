@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
+import com.govmt.sgd.model.Orgao;
+
 public record DocumentoResponse(
     UUID id, 
-    UUID orgaoId,
+    Orgao orgao,
     String sigdoc, 
     Date chegouEm,  
     Date concluiuEm,   

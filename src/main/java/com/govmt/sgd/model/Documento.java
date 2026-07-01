@@ -56,13 +56,23 @@ public class Documento {
     
     @Column(name = "caracterizacao_ti")
     private String caracterizacaoTi;   
+
+    @Column(name = "iniciado")
     private Boolean iniciado;  
-    private Boolean condes; 
+
+    @Column(name = "condes")
+    private Boolean condes;
+    
+    @Column(name = "resumo")
     private String resumo; 
     
     @Column(name = "tipo_contratacao")
     private String tipoContratacao;   
+
+    @Column(name = "objeto")
     private String objeto;
+
+    @Column(name = "recomendacao")
     private String recomendacao;
 
     @Column(name = "parecer_final")
