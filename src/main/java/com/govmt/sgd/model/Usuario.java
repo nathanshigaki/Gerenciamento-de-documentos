@@ -1,7 +1,29 @@
 package com.govmt.sgd.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = "usuarios")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario {
 
     @Id
@@ -17,11 +39,14 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
+    @Column(columnDefinition = "text[]")
     private List<String> permissoao;
 
+    @CreationTimestamp
     @Column(name = "criado_em", updatable = false)
-    private timestamp criadoEm;
+    private LocalDateTime criadoEm;
 
+    @UpdateTimestamp
     @Column(name = "atualizado_em")
-    private timestamp atualizadoEm;
+    private LocalDateTime atualizadoEm;
 }
