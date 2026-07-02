@@ -3,6 +3,8 @@ package com.govmt.sgd.mappers;
 import com.govmt.sgd.dto.response.DocumentoUsuarioResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
 import com.govmt.sgd.dto.request.DocumentoUsuarioRequest;
 import com.govmt.sgd.model.DocumentoUsuario;
 

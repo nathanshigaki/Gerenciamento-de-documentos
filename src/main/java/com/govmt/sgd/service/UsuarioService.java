@@ -45,7 +45,7 @@ public class UsuarioService {
     public UsuarioResponse findById(UUID id){
         return usuarioRepository.findById(id)
                 .map(usuarioMapper::toResponseFromUsuario)
-                .orElseThrow(() -> new RuntimeException("N encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
     @Transactional
