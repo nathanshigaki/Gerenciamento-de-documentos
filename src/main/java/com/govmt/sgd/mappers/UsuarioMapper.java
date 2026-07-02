@@ -1,6 +1,8 @@
 package com.govmt.sgd.mappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.govmt.sgd.dto.request.UsuarioRequest;
 import com.govmt.sgd.dto.response.UsuarioResponse;
@@ -14,4 +16,12 @@ public interface UsuarioMapper {
     
     Usuario toUsuarioFromResponse(UsuarioResponse response);
     UsuarioResponse toResponseFromUsuario(Usuario usuario);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "senha", ignore = true)
+    @Mapping(target = "permissao", ignore = true)
+    @Mapping(target = "criadoEm", ignore = true)
+    @Mapping(target = "atualizadoEm", ignore = true)
+    void updateUsuarioFromRequest(UsuarioRequest request, @MappingTarget Usuario entity);
 }

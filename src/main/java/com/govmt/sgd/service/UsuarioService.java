@@ -23,11 +23,14 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioResponse createUsuario(UsuarioRequest usuarioRequest){
-        if (usuarioRequest.nome().strip() == null) throw new IllegalArgumentException("Nome vazio");
-        if (usuarioRequest.senha() == null) throw new IllegalArgumentException("Senha vazia");
+        if (usuarioRequest.nome() == null || usuarioRequest.nome().isBlank()) {
+            throw new IllegalArgumentException("Nome vazio");
+        }
+        if (usuarioRequest.senha() == null || usuarioRequest.senha().isBlank()) {
+            throw new IllegalArgumentException("Senha vazia");
+        }
         
-        return usuarioMapper.toResponseFromUsuario(
-            usuarioRepository.save(usuarioMapper.toUsuarioFromRequest(usuarioRequest)));
+        return usuarioMapper.toResponseFromUsuario(usuarioRepository.save(usuarioMapper.toUsuarioFromRequest(usuarioRequest)));
     }
 
     @Transactional(readOnly = true)
@@ -48,12 +51,10 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponse updateUsuario(UsuarioRequest usuarioRequest){
         UsuarioResponse usuarioResponse = findById(usuarioRequest.id());
-
-        if (usuarioResponse.nome() == usuarioRequest.nome()) throw new IllegalArgumentException("mesmo nome");
-
         Usuario usuario = usuarioMapper.toUsuarioFromResponse(usuarioResponse);
-        usuario.setNome(usuarioRequest.nome());
-        return usuarioMapper.toResponseFromUsuario(usuarioRepository.save(usuario));
+
+        usuarioMapper.updateUsuarioFromRequest(usuarioRequest, usuario);
+        return usuarioMapper.toResponseFromUsuario(usuario);
     }
 
     @Transactional

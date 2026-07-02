@@ -23,24 +23,30 @@ public class OrgaoService {
 
     @Transactional
     public OrgaoResponse createOrgao(OrgaoRequest orgaoRequest){
-        if(orgaoRequest.nome() == null) throw new IllegalArgumentException("sem nome");
+        if (orgaoRequest.nome() == null || orgaoRequest.nome().isBlank()) {
+            throw new IllegalArgumentException("O Órgão precisa de um nome");
+        }
 
         return orgaoMapper.toResponseFromOrgao(orgaoRepository.save(orgaoMapper.toOrgaoFromRequest(orgaoRequest)));
     }
 
     @Transactional(readOnly = true)
     public List<OrgaoResponse> getAll(){
-        return orgaoRepository.findAll().stream().map(orgaoMapper::toResponseFromOrgao).toList();
+        return orgaoRepository.findAll()
+                .stream()
+                .map(orgaoMapper::toResponseFromOrgao)
+                .toList();
     }
 
     @Transactional(readOnly = true)
     public OrgaoResponse findById(UUID id){
-        return orgaoRepository.findById(id).map(orgaoMapper::toResponseFromOrgao)
-                .orElseThrow(() -> new RuntimeException("n existe"));
+        return orgaoRepository.findById(id)
+                .map(orgaoMapper::toResponseFromOrgao)
+                .orElseThrow(() -> new RuntimeException("Órgão não encontrado"));
     }
 
     @Transactional
-    public void OrgaoResponse(UUID id){
+    public void deleteOrgao(UUID id){
         OrgaoResponse orgaoExiste = findById(id);
         orgaoRepository.delete(orgaoMapper.toOrgaoFromResponse(orgaoExiste));
     }
