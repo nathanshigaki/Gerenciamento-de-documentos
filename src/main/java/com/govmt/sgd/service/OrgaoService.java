@@ -1,6 +1,7 @@
 package com.govmt.sgd.service;
 
 import com.govmt.sgd.mappers.OrgaoMapper;
+import com.govmt.sgd.model.Orgao;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +44,14 @@ public class OrgaoService {
         return orgaoRepository.findById(id)
                 .map(orgaoMapper::toResponseFromOrgao)
                 .orElseThrow(() -> new RuntimeException("Órgão não encontrado"));
+    }
+
+    @Transactional
+    public OrgaoResponse updateOrgao(OrgaoRequest orgaoRequest){
+        OrgaoResponse orgaoResponse = findById(orgaoRequest.id());
+        Orgao orgao = orgaoMapper.toOrgaoFromResponse(orgaoResponse);
+
+        
     }
 
     @Transactional

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.govmt.sgd.dto.request.DocumentoUsuarioRequest;
 import com.govmt.sgd.dto.response.DocumentoUsuarioResponse;
 import com.govmt.sgd.mappers.DocumentoUsuarioMapper;
+import com.govmt.sgd.model.DocumentoUsuario;
 import com.govmt.sgd.repository.DocumentoUsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,15 @@ public class DocumentoUsuarioService {
         return documentoUsuarioRepository.findById(id)
                 .map(documentoUsuarioMapper::toResponseFromDocumentoUsuario)
                 .orElseThrow(() -> new RuntimeException("Atribuição não encontrada"));
+    }
+
+    @Transactional
+    public DocumentoUsuarioResponse updateDocumentoUsuario(DocumentoUsuarioRequest request){
+        DocumentoUsuarioResponse response = findById(request.id());
+        DocumentoUsuario documentoUsuario = documentoUsuarioMapper.toDocumentoUsuarioFromResponse(response);
+
+        documentoUsuarioMapper.updateDocumentoUsuarioFromRequest(request, documentoUsuario);
+        return documentoUsuarioMapper.toResponseFromDocumentoUsuario(documentoUsuario);
     }
 
     @Transactional

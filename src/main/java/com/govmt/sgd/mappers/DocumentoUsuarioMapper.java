@@ -26,4 +26,11 @@ public interface DocumentoUsuarioMapper {
     @Mapping(source = "documentoId", target = "documento")
     @Mapping(source = "usuarioId", target = "usuario")
     DocumentoUsuario toDocumentoUsuarioFromResponse(DocumentoUsuarioResponse response);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(source = "documentoId", target = "documento.id")
+    @Mapping(source = "usuarioId", target = "usuario.id")
+    @Mapping(target = "criadoEm", ignore = true)
+    @Mapping(target = "atualizadoEm", ignore = true)
+    void updateDocumentoUsuarioFromRequest(DocumentoUsuarioRequest request, @MappingTarget DocumentoUsuario entity);
 }
