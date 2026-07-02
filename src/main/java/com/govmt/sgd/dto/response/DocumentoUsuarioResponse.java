@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public record DocumentoUsuarioResponse(
     UUID id,
-    DocumentoResponse documentoId,
-    UsuarioResponse usuarioId,
+    DocumentoResponse documento,
+    UsuarioResponse usuario,
     String cargo,
     LocalDateTime criadoEm,
     LocalDateTime atualizadoEm
