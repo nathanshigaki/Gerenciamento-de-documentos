@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.govmt.sgd.dto.request.UsuarioRequest;
 import com.govmt.sgd.dto.response.UsuarioResponse;
 import com.govmt.sgd.exception.InvalidNameException;
+import com.govmt.sgd.exception.InvalidPasswordException;
+import com.govmt.sgd.exception.NotFoundException;
 import com.govmt.sgd.mappers.UsuarioMapper;
 import com.govmt.sgd.model.Usuario;
 import com.govmt.sgd.repository.UsuarioRepository;
@@ -28,7 +30,7 @@ public class UsuarioService {
             throw new InvalidNameException("Nome vazio");
         }
         if (usuarioRequest.senha() == null || usuarioRequest.senha().isBlank()) {
-            throw new IllegalArgumentException("Senha vazia");
+            throw new InvalidPasswordException("Senha vazia");
         }
         
         return usuarioMapper.toResponseFromUsuario(usuarioRepository.save(usuarioMapper.toUsuarioFromRequest(usuarioRequest)));
@@ -46,7 +48,7 @@ public class UsuarioService {
     public UsuarioResponse findById(UUID id){
         return usuarioRepository.findById(id)
                 .map(usuarioMapper::toResponseFromUsuario)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
     }
 
     @Transactional

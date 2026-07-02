@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.OrgaoRequest;
 import com.govmt.sgd.dto.response.OrgaoResponse;
+import com.govmt.sgd.exception.InvalidOrgaoException;
+import com.govmt.sgd.exception.NotFoundException;
 import com.govmt.sgd.repository.OrgaoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,7 @@ public class OrgaoService {
     @Transactional
     public OrgaoResponse createOrgao(OrgaoRequest orgaoRequest){
         if (orgaoRequest.nome() == null || orgaoRequest.nome().isBlank()) {
-            throw new IllegalArgumentException("O Órgão precisa de um nome");
+            throw new InvalidOrgaoException("O Órgão precisa de um nome");
         }
 
         return orgaoMapper.toResponseFromOrgao(orgaoRepository.save(orgaoMapper.toOrgaoFromRequest(orgaoRequest)));
@@ -43,7 +45,7 @@ public class OrgaoService {
     public OrgaoResponse findById(UUID id){
         return orgaoRepository.findById(id)
                 .map(orgaoMapper::toResponseFromOrgao)
-                .orElseThrow(() -> new RuntimeException("Órgão não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Órgão não encontrado"));
     }
 
     @Transactional

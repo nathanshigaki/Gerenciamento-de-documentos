@@ -68,6 +68,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
+    @ExceptionHandler(InvalidOrgaoException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidOrgaoException(InvalidOrgaoException ex, HttpServletRequest request) {
+        
+        ErrorResponse erro = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.BAD_REQUEST.value(),
+            "Nome vazio ou inválido",
+            ex.getMessage(),
+            request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
         
