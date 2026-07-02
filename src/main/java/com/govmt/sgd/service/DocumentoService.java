@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.DocumentoRequest;
 import com.govmt.sgd.dto.response.DocumentoResponse;
-import com.govmt.sgd.exception.InvalidSigdocException;
+import com.govmt.sgd.exception.InvalidArgumentException;
 import com.govmt.sgd.exception.NotFoundException;
 import com.govmt.sgd.mappers.DocumentoMapper;
 import com.govmt.sgd.model.Documento;
@@ -28,7 +28,7 @@ public class DocumentoService {
     @Transactional
     public DocumentoResponse createDocumento(DocumentoRequest request) {
         if (request.sigdoc() == null || request.sigdoc().isBlank()) {
-            throw new InvalidSigdocException("O Sigdoc é obrigatório");
+            throw new InvalidArgumentException("O Sigdoc é obrigatório");
         }
         
         return documentoMapper.toResponseFromDocumento(documentoRepository.save(documentoMapper.toDocumentoFromRequest(request)));

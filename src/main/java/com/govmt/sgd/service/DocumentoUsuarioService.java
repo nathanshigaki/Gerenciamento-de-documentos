@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.DocumentoUsuarioRequest;
 import com.govmt.sgd.dto.response.DocumentoUsuarioResponse;
-import com.govmt.sgd.exception.InvalidCargoException;
+import com.govmt.sgd.exception.InvalidArgumentException;
 import com.govmt.sgd.exception.NotFoundException;
 import com.govmt.sgd.mappers.DocumentoUsuarioMapper;
 import com.govmt.sgd.model.DocumentoUsuario;
@@ -26,7 +26,7 @@ public class DocumentoUsuarioService {
     @Transactional
     public DocumentoUsuarioResponse createDocumentoUsuario(DocumentoUsuarioRequest request) {
         if (request.cargo() == null || request.cargo().isBlank()) {
-            throw new InvalidCargoException("O cargo na atribuição é obrigatório");
+            throw new InvalidArgumentException("O cargo na atribuição é obrigatório");
         }
 
         return documentoUsuarioMapper.toResponseFromDocumentoUsuario(documentoUsuarioRepository.save(documentoUsuarioMapper.toDocumentoUsuarioFromRequest(request)));

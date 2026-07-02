@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.OrgaoRequest;
 import com.govmt.sgd.dto.response.OrgaoResponse;
-import com.govmt.sgd.exception.InvalidOrgaoException;
+import com.govmt.sgd.exception.InvalidArgumentException;
 import com.govmt.sgd.exception.NotFoundException;
 import com.govmt.sgd.repository.OrgaoRepository;
 
@@ -27,7 +27,7 @@ public class OrgaoService {
     @Transactional
     public OrgaoResponse createOrgao(OrgaoRequest orgaoRequest){
         if (orgaoRequest.nome() == null || orgaoRequest.nome().isBlank()) {
-            throw new InvalidOrgaoException("O Órgão precisa de um nome");
+            throw new InvalidArgumentException("O Órgão precisa de um nome");
         }
 
         return orgaoMapper.toResponseFromOrgao(orgaoRepository.save(orgaoMapper.toOrgaoFromRequest(orgaoRequest)));
