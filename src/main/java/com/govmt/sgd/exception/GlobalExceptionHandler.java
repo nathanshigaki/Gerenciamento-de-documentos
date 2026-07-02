@@ -26,8 +26,50 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> notFoundException(RuntimeException ex, HttpServletRequest request) {
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidPasswordException(InvalidPasswordException ex, HttpServletRequest request) {
+        
+        ErrorResponse erro = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.BAD_REQUEST.value(),
+            "Nome vazio ou inválido",
+            ex.getMessage(),
+            request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
+    @ExceptionHandler(InvalidSigdocException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidSigdocException(InvalidSigdocException ex, HttpServletRequest request) {
+        
+        ErrorResponse erro = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.BAD_REQUEST.value(),
+            "Nome vazio ou inválido",
+            ex.getMessage(),
+            request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
+    @ExceptionHandler(InvalidCargoException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCargoException(InvalidCargoException ex, HttpServletRequest request) {
+        
+        ErrorResponse erro = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.BAD_REQUEST.value(),
+            "Nome vazio ou inválido",
+            ex.getMessage(),
+            request.getRequestURI()
+        );
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
         
         ErrorResponse erro = new ErrorResponse(
             LocalDateTime.now(),
@@ -38,19 +80,5 @@ public class GlobalExceptionHandler {
         );
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> genericException(Exception ex, HttpServletRequest request) {
-        
-        ErrorResponse erro = new ErrorResponse(
-            LocalDateTime.now(),
-            HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            "Erro Interno no Servidor",
-            "Ocorreu um erro inesperado. Contate o suporte.", // Ocultamos a mensagem real (ex.getMessage()) por segurança
-            request.getRequestURI()
-        );
-        
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(erro);
     }
 }

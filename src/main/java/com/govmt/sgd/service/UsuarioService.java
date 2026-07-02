@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.UsuarioRequest;
 import com.govmt.sgd.dto.response.UsuarioResponse;
-import com.govmt.sgd.exception.GlobalExceptionHandler;
 import com.govmt.sgd.exception.InvalidNameException;
 import com.govmt.sgd.mappers.UsuarioMapper;
 import com.govmt.sgd.model.Usuario;
