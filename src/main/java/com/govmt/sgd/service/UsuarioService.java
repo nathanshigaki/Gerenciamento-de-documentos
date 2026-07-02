@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.govmt.sgd.dto.request.UsuarioRequest;
 import com.govmt.sgd.dto.response.UsuarioResponse;
+import com.govmt.sgd.exception.GlobalExceptionHandler;
+import com.govmt.sgd.exception.InvalidNameException;
 import com.govmt.sgd.mappers.UsuarioMapper;
 import com.govmt.sgd.model.Usuario;
 import com.govmt.sgd.repository.UsuarioRepository;
@@ -24,7 +26,7 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponse createUsuario(UsuarioRequest usuarioRequest){
         if (usuarioRequest.nome() == null || usuarioRequest.nome().isBlank()) {
-            throw new IllegalArgumentException("Nome vazio");
+            throw new InvalidNameException("Nome vazio");
         }
         if (usuarioRequest.senha() == null || usuarioRequest.senha().isBlank()) {
             throw new IllegalArgumentException("Senha vazia");
